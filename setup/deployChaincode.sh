@@ -88,7 +88,7 @@ approveForMyOrg1() {
     setGlobalsForPeer0Org1
     # set -x
     # Replace localhost with your orderer's vm IP address
-    peer lifecycle chaincode approveformyorg -o 172.105.37.91:7050 \
+    peer lifecycle chaincode approveformyorg -o 172.105.53.63:7050 \
         --ordererTLSHostnameOverride orderer.example.com --tls \
         --cafile $ORDERER_CA --channelID $CHANNEL_NAME --name ${CC_NAME} --version ${VERSION} \
         --init-required --package-id ${PACKAGE_ID} \
@@ -135,19 +135,19 @@ queryCommitted() {
 
 chaincodeInvokeInit() {
     setGlobalsForPeer0Org1
-    peer chaincode invoke -o 172.105.37.91:7050 \
+    peer chaincode invoke -o 172.105.53.63:7050 \
         --ordererTLSHostnameOverride orderer.example.com \
         --tls $CORE_PEER_TLS_ENABLED --cafile $ORDERER_CA \
         -C $CHANNEL_NAME -n ${CC_NAME} \
-        --peerAddresses localhost:9051 --tlsRootCertFiles $PEER0_ORG2_CA \
-         --peerAddresses localhost:11051 --tlsRootCertFiles $PEER0_ORG3_CA \
+        --peerAddresses 172.105.53.112:9051 --tlsRootCertFiles $PEER0_ORG2_CA \
+        --peerAddresses localhost:7051 --tlsRootCertFiles $PEER0_ORG1_CA \
         --isInit -c '{"Args":[]}'
 
 }
 
  # --peerAddresses localhost:7051 --tlsRootCertFiles $PEER0_ORG1_CA \
 
-# chaincodeInvokeInit
+chaincodeInvokeInit
 
 chaincodeInvoke() {
     setGlobalsForPeer0Org1

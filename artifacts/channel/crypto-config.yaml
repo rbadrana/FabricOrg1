@@ -39,6 +39,7 @@ PeerOrgs:
       Count: 2
       SANS:
         - "localhost"  #here ip address of org can be provided
-
+      #  - "peer0.org2.example.com"
+      #  - "172.105.53.112"
     Users:
       Count: 1

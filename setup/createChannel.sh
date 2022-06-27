@@ -1,9 +1,9 @@
 export CORE_PEER_TLS_ENABLED=true
 export ORDERER_CA=${PWD}/crypto-config/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem
 export PEER0_ORG1_CA=${PWD}/crypto-config/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls/ca.crt
-export FABRIC_CFG_PATH=${PWD}/../artifacts/channel/nodes-config/
+export FABRIC_CFG_PATH=${PWD}/../artifacts/channel/config/
 
-export CHANNEL_NAME=myorgchannel
+export CHANNEL_NAME=myorgchannel2
 
 setGlobalsForPeer0Org1(){
     export CORE_PEER_LOCALMSPID="Org1MSP"
@@ -24,7 +24,7 @@ createChannel(){
     setGlobalsForPeer0Org1
     
     # Replace localhost with your orderer's vm IP address
-    peer channel create -o 172.105.37.91:7050 -c $CHANNEL_NAME \
+    peer channel create -o 172.105.53.63:7050 -c $CHANNEL_NAME \
     --ordererTLSHostnameOverride orderer.example.com \
     -f ./../artifacts/channel/${CHANNEL_NAME}.tx --outputBlock ./channel-artifacts/${CHANNEL_NAME}.block \
     --tls $CORE_PEER_TLS_ENABLED --cafile $ORDERER_CA
@@ -46,7 +46,7 @@ joinChannel(){
 updateAnchorPeers(){
     setGlobalsForPeer0Org1
     # Replace localhost with your orderer's vm IP address
-    peer channel update -o 172.105.37.91:7050 --ordererTLSHostnameOverride orderer.example.com -c $CHANNEL_NAME -f ./../artifacts/channel/${CORE_PEER_LOCALMSPID}anchors.tx --tls $CORE_PEER_TLS_ENABLED --cafile $ORDERER_CA
+    peer channel update -o 172.105.53.63:7050 --ordererTLSHostnameOverride orderer.example.com -c $CHANNEL_NAME -f ./../artifacts/channel/${CORE_PEER_LOCALMSPID}anchors.tx --tls $CORE_PEER_TLS_ENABLED --cafile $ORDERER_CA
     
 }
 
